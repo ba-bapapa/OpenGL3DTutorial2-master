@@ -7,6 +7,7 @@
 #define MAINGAMESCENE_H_INCLUDED
 #include "Scene.h"
 #include "Sprite.h"
+#include "Font.h"
 #include <vector>
 
 /**
@@ -29,6 +30,7 @@ private:
 	bool flag = false;
 	std::vector<Sprite> sprites;
 	SpriteRenderer spriteRenderer;
+	FontRenderer fontRenderer;
 };
 
 #endif // MAINGAMESCENE_H_INCLUDED

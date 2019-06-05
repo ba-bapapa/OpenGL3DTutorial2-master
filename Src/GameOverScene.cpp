@@ -20,6 +20,10 @@ bool GameOverScene::Initialize() {
 	spr.Scale(glm::vec2(2));
 	sprites.push_back(spr);
 
+	//font
+	fontRenderer.Init(1000);
+	fontRenderer.LoadFromFile("Res/font.fnt");
+
 	return true;
 }
 
@@ -47,6 +51,14 @@ void GameOverScene::Update(float deltaTime) {
 		spriteRenderer.AddVertices(e);
 	}
 	spriteRenderer.EndUpdate();
+
+	const GLFWEW::Window& window = GLFWEW::Window::Instance();
+	const float w = window.Width();
+	const float h = window.Height();
+	const float lineHeight = fontRenderer.LineHeight();
+	fontRenderer.BeginUpdate();
+	fontRenderer.AddString(glm::vec2(-w * 0.5f + 32, h * 0.5f - lineHeight), L"ゲームオーバー");
+	fontRenderer.EndUpdate();
 }
 
 /*
@@ -56,4 +68,6 @@ void GameOverScene::Render() {
 	const GLFWEW::Window& window = GLFWEW::Window::Instance();
 	const glm::vec2 screenSize(window.Width(), window.Height());
 	spriteRenderer.Draw(screenSize);
+
+	fontRenderer.Draw(screenSize);
 }

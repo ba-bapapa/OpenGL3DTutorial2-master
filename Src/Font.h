@@ -9,6 +9,16 @@
 #include <vector>
 #include <string>
 
+class FontSprite {
+	//色の設定・取得
+	void Color(const glm::vec4& c) { color = c; }
+	const glm::vec4& Color() const { return color; }
+
+private:
+	glm::vec4 color = glm::vec4(1);
+	glm::vec4 color;					///<　色
+};
+
 /*
 *ビットマップフォント描画クラス
 */
@@ -33,6 +43,7 @@ private:
 	std::vector<Texture::Image2DPtr> textures; ///<フォントテクスチャリスト
 	float lineHeight = 0;	///<行の高さ
 	float base = 0;			///<　行の上部からベースラインまでの距離
+	glm::vec4 color = glm::vec4(1);
 
 	///文字情報
 	struct CharacterInfo {

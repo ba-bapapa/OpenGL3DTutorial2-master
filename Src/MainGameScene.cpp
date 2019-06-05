@@ -20,6 +20,10 @@ bool MainGameScene::Initialize() {
 	spr.Scale(glm::vec2(2));
 	sprites.push_back(spr);
 
+	//font
+	fontRenderer.Init(1000);
+	fontRenderer.LoadFromFile("Res/font.fnt");
+
 	return true;
 }
 
@@ -29,17 +33,17 @@ bool MainGameScene::Initialize() {
 void MainGameScene::ProcessInput() {
 	GLFWEW::Window& window = GLFWEW::Window::Instance();
 
-	/*if (!flag) {
+	if (!flag) {
 		if (window.GetGamePad().buttonDown & GamePad::START) {
 			flag = true;
 			SceneStack::Instance().Push(std::make_shared<StatusScene>());
 		}
 	}
-	else {*/
+	else {
 		if (window.GetGamePad().buttonDown & GamePad::START) {
 			SceneStack::Instance().Replace(std::make_shared<GameOverScene>());
 		}	
-	//}
+	}
 }
 
 /*
@@ -53,6 +57,14 @@ void MainGameScene::Update(float deltaTime) {
 		spriteRenderer.AddVertices(e);
 	}
 	spriteRenderer.EndUpdate();
+
+	const GLFWEW::Window& window = GLFWEW::Window::Instance();
+	const float w = window.Width();
+	const float h = window.Height();
+	const float lineHeight = fontRenderer.LineHeight();
+	fontRenderer.BeginUpdate();
+	fontRenderer.AddString(glm::vec2(-w * 0.5f + 32, h * 0.5f - lineHeight), L"メインゲームシーン");
+	fontRenderer.EndUpdate();
 }
 
 /*
@@ -62,8 +74,9 @@ void MainGameScene::Render() {
 	const GLFWEW::Window& window = GLFWEW::Window::Instance();
 	const glm::vec2 screenSize(window.Width(), window.Height());
 	spriteRenderer.Draw(screenSize);
+	fontRenderer.Draw(screenSize);
 }
 
 void Finalize(){
-
+	
 }
